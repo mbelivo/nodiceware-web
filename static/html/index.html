@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+  <title>Générateur de mot de passe - nodiceware</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+  <style>
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Roboto Thin'), local('Roboto-Thin'), url(https://fonts.gstatic.com/s/roboto/v18/2tsd397wLxj96qwHyNIkxPesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+}
+  </style>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="main">
+      <ul id="passphrase" :class="{full: !zipable}">
+        <li class="pword" v-for="word in passphrase.words">{{ word }}</li>
+      </ul>
+      <ul id="compphrase" v-if="prefixes.length">
+        <li class="pword" v-for="pref in prefixes">{{ pref }}</li>
+      </ul>
+    </div>
+    <div id="foot">
+      <div class="strength">
+        <div class="smeter">
+          <div  v-bind:style="{ width: passphrase.strength + '%' }" v-bind:class="[strengthClass]"></div>
+        </div>
+      </div>
+      <select v-model="strength">
+        <option>base</option>
+        <option>strong</option>
+        <option>stronger</option>
+        <option>strongest</option>
+      </select>
+      <label><input type="checkbox" v-model="zipable"> Alternative</label>
+      {{ passphrase.strength }}% ({{entropy}}bits)
+    </div>
+  </div>
+  <script src="/static/js/app.js"></script>
+</body>
