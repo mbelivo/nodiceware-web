@@ -23,11 +23,12 @@
 }
 
 #passphrase {
-  font-size: 3.7vw;
+  font-size: 4vw;
+  margin-bottom: 0;
 }
 
-#passphrase.full {
-  font-size: 4vw;
+#passphrase.zipable {
+  font-size: 3.7vw;
   margin-bottom: 3vh;
 }
 
@@ -44,9 +45,6 @@
 
 .pw-word {
   margin: 0.2vw;
-}
-
-.pp-word .prefix {
 }
 
 .pp-word .postfix {
@@ -84,23 +82,20 @@
 #foot {
   bottom: 0;
   position: absolute;
+  width: 100%;
 }
 
 .strength {
-  border-radius: 10px;
   background-color: lightgrey;
-  padding: 2px;
-  width: 350px;
+  width: 100%;
 }
 
 .smeter {
-  background-color: darkgrey;
-  border-radius: 2px;
-  height: 4px;
+  background-color: lightgrey;
+  height: 10px;
 }
 
 .smeter > div {
-  border-radius: 2px;
   height: 100%;
   width: 0;
 }

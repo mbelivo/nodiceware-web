@@ -21,12 +21,12 @@ body {
 <body>
   <div id="app">
     <div id="main">
-      <ul v-if="splitwords.length" id="passphrase" :class="{full: !zipable}">
+      <ul v-if="splitwords.length" id="passphrase" class="zipable">
         <li class="pp-word" v-for="word in splitwords">
           <span class="prefix">{{ word.pre }}</span><span class="postfix">{{ word.post }}</span>
         </li>
       </ul>
-      <ul v-else id="passphrase" :class="{full: !zipable}">
+      <ul v-else id="passphrase">
         <li class="pp-word" v-for="word in words">{{ word }}</li>
       </ul>
       <ul id="password" v-if="splitwords.length">
@@ -34,19 +34,19 @@ body {
       </ul>
     </div>
     <div id="foot">
-      <div class="strength">
-        <div class="smeter">
-          <div :style="{ width: strength_score + '%' }" :class="[strengthClass]"></div>
-        </div>
-      </div>
       <select v-model="strength">
         <option>base</option>
         <option>strong</option>
         <option>stronger</option>
         <option>strongest</option>
       </select>
-      <label><input type="checkbox" v-model="zipable"> Alternative</label>
-      {{ strength_score }}% ({{entropy}}bits) {{ passlen }} lettres
+      <label><input type="checkbox" v-model="zipable"> taper moins</label>
+      - {{ passlen }} lettres
+      <div class="strength" :title="entropy + ' bits d\'entropie'">
+        <div class="smeter">
+          <div :style="{ width: strength_score + '%' }" :class="[strengthClass]"></div>
+        </div>
+      </div>
     </div>
   </div>
   <script src="/static/js/app.js"></script>
