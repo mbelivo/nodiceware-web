@@ -4,9 +4,12 @@ var app = new Vue({
         this.updateDataFromHash();
     },
     data: {
-        passphrase: {},
+        words: [],
+        entropy: 0,
+        unique_prefix: null,
+        strength_score: 0,
         strength: null,
-        zipable: null,
+        zipable: false,
     },
     computed: {
         apiurl: function() {
@@ -16,23 +19,30 @@ var app = new Vue({
 
             return path;
         },
+        passlen: function() {
+            if (this.zipable) {
+                return this.words.length * this.unique_prefix;
+            }
+
+            return this.words.reduce((acc, w) => acc + w.length, 0);
+        },
         path: function() {
             return (this.zipable ? 'xpass' : 'pass') + '/' + this.strength;
         },
-        entropy: function() {
-            return Math.round(this.passphrase.entropy);
-        },
-        prefixes: function() {
-            let prefix = this.passphrase.unique_prefix;
+        splitwords: function() {
+            let prefix = this.unique_prefix;
 
             if (!prefix) return [];
 
-            return this.passphrase.words.map(function(word) {
-                return word.substr(0, prefix);
+            return this.words.map((word) => {
+                return {
+                    pre: word.substr(0, prefix),
+                    post: word.substr(prefix)
+                };
             });
         },
         strengthClass: function() {
-            var s = this.passphrase.strength;
+            var s = this.strength_score;
 
             if (s < 34)
                 return 'verybad-strength';
@@ -57,7 +67,10 @@ var app = new Vue({
             fetch(this.apiurl).then(function(resp) {
                 return resp.json();
             }).then(function(json) {
-                vm.passphrase = json;
+                vm.words = json.words;
+                vm.unique_prefix = json.unique_prefix;
+                vm.strength_score = json.strength;
+                vm.entropy = Math.round(json.entropy);
             });
         },
         updateLocation: function() {
@@ -69,7 +82,7 @@ var app = new Vue({
             if (hash) {
                 var [type, strength] = hash.substring(1).split('/');
                 this.zipable = type === 'xpass';
-                this.strength = strength || this.strength;
+                this.strength = strength;
             } else {
                 this.zipable = false;
                 this.strength = 'base';

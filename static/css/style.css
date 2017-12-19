@@ -2,71 +2,82 @@
   box-sizing: border-box;
 }
 
-#passphrase, #compphrase {
+#main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 50px;
+  left: 0;
+
   align-items: center;
   display: flex;
-  font-size: 3vw;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#passphrase, #password {
+  display: flex;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-#compphrase {
-  font-size: 6vw;
-  height: 40vh;
-  justify-content: center;
+#passphrase {
+  font-size: 3.7vw;
 }
 
 #passphrase.full {
   font-size: 4vw;
-  height: 70vh;
-  justify-content: center;
+  margin-bottom: 3vh;
 }
 
-.pword {
+#password {
+  font-size: 2.5vw;
+}
+
+.pp-word {
   border-bottom-style: solid;
-  border-bottom-width: 1px;
+  border-bottom-width: 2px;
   border-color: red;
   margin: 0.5vw;
-  text-align: center;
 }
 
-.full .pword {
-  border-bottom-width: 2px;
+.pw-word {
+  margin: 0.2vw;
 }
 
-#compphrase .pword {
-  border-bottom: 0;
-  border-top-style: solid;
-  border-top-width: 2px;
+.pp-word .prefix {
 }
 
-.pword:nth-child(2) {
+.pp-word .postfix {
+  color: grey;
+}
+
+.pp-word:nth-child(2) {
   border-color: orange;
 }
 
-.pword:nth-child(3) {
+.pp-word:nth-child(3) {
   border-color: yellow;
 }
 
-.pword:nth-child(4) {
+.pp-word:nth-child(4) {
   border-color: green;
 }
 
-.pword:nth-child(5) {
+.pp-word:nth-child(5) {
   border-color: cyan;
 }
 
-.pword:nth-child(6) {
+.pp-word:nth-child(6) {
   border-color: blue;
 }
 
-.pword:nth-child(7) {
+.pp-word:nth-child(7) {
   border-color: pink;
 }
 
-.pword:nth-child(8) {
+.pp-word:nth-child(8) {
   border-color: red;
 }
 

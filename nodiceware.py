@@ -40,10 +40,10 @@ def get_nbwords(wordlist, strength):
 
 
 def json_pass(listname, strength, unique_prefix=None):
-    nbwords = get_nbwords(listname, strength)
+    nb_words = get_nbwords(listname, strength)
 
     with open(get_wordlist_path(listname)) as f:
-        words, entropy = rolldice(f, nb_words=nbwords)
+        words, entropy = rolldice(f, nb_words=nb_words)
 
     ret = {
         'words': words,
@@ -72,9 +72,3 @@ def passphrase(strength="base"):
         listname = '3k'
 
     return json_pass(listname, strength)
-
-
-@app.route('/api/xpassphrase')
-@app.route('/api/xpassphrase/<strength>')
-def alt_passphrase(strength="base"):
-    return json_pass('4d_3', strength, unique_prefix=3)
