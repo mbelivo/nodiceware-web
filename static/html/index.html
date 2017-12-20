@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
   <title>Générateur de mot de passe - nodiceware</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
   <style>
@@ -20,13 +21,14 @@ body {
 </head>
 <body>
   <div id="app">
+    <div class="error" v-if="errorMessage"><p>{{ errorMessage }}</p></div>
     <div id="main">
       <ul v-if="splitwords.length" id="passphrase" class="zipable">
         <li class="pp-word" v-for="word in splitwords">
           <span class="prefix">{{ word.pre }}</span><span class="postfix">{{ word.post }}</span>
         </li>
       </ul>
-      <ul v-else id="passphrase">
+      <ul v-else id="passphrase" :class=[strength]>
         <li class="pp-word" v-for="word in words">{{ word }}</li>
       </ul>
       <ul id="password" v-if="splitwords.length">
@@ -34,14 +36,16 @@ body {
       </ul>
     </div>
     <div id="foot">
-      <select v-model="strength">
-        <option>base</option>
-        <option>strong</option>
-        <option>stronger</option>
-        <option>strongest</option>
-      </select>
-      <label><input type="checkbox" v-model="zipable"> taper moins</label>
-      - {{ passlen }} lettres
+      <div class="phrase">
+        <p>
+          Un mot de passe {{ strengthLabel }} en {{ passlen }} lettres.
+          <button class="linkbtn" @click="toggleZipable">{{ toggleZipableLabel }}</button>
+        </p>
+      </div>
+      <button @click="stepdown" class="strengthbtn stepdown" :disabled="!strength_index"
+        title="Affaiblir le mot de passe">➖</button>
+      <button @click="stepup" class="strengthbtn stepup" :disabled="isMaxStrength"
+        title="Renforcer le mot de passe">➕</button>
       <div class="strength" :title="entropy + ' bits d\'entropie'">
         <div class="smeter">
           <div :style="{ width: strength_score + '%' }" :class="[strengthClass]"></div>

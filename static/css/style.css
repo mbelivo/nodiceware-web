@@ -16,34 +16,39 @@
 }
 
 #passphrase, #password {
-  display: flex;
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 0 2vw;
+  text-align: center;
+  width: 100%;
 }
 
 #passphrase {
-  font-size: 4vw;
+  font-size: 4.5vw;
   margin-bottom: 0;
 }
 
 #passphrase.zipable {
-  font-size: 3.7vw;
+  font-size: 4vw;
   margin-bottom: 3vh;
 }
 
 #password {
   font-size: 2.5vw;
 }
-
+.stronger .pp-word, .strongest .pp-word {
+  font-size: 90%;
+}
 .pp-word {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-color: red;
-  margin: 0.5vw;
+  display: inline-block;
+  margin: 0.7vw;
 }
 
 .pw-word {
+  display: inline-block;
   margin: 0.2vw;
 }
 
@@ -96,6 +101,7 @@
 }
 
 .smeter > div {
+  transition: all 0.5s ease-out;
   height: 100%;
   width: 0;
 }
@@ -125,4 +131,77 @@
 }
 .excellent-strength {
   background: linear-gradient(to right, lime, green 66%);
+}
+
+.error {
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  font-size: 20px;
+}
+
+.strengthbtn {
+  background: lightgray;
+  border: 0;
+  border-radius: 50%;
+  bottom: 20px;
+  color: white;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  opacity: 0.6;
+  position: absolute;
+  width: 30px;
+}
+
+.strengthbtn:hover {
+  opacity: 1;
+}
+
+.strengthbtn:disabled {
+  cursor: initial;
+  opacity: 0.3;
+}
+
+.strengthbtn:focus {
+  outline: 0;
+}
+
+.stepup {
+  background-color: lime;
+  right: 10px;
+}
+
+.stepdown {
+  background-color: gold;
+  left: 10px;
+}
+
+.phrase {
+  text-align: center;
+}
+
+.linkbtn {
+  background: transparent;
+  border: 0;
+  color: blue;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.linkbtn:focus {
+  outline: 0;
+}
+
+@media only screen and (max-width: 35em) {
+  .pp-word {
+    display: block;
+    font-size: 3em;
+  }
+  .pw-word {
+    font-size: 2em;
+    margin: 2px;
+  }
 }

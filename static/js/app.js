@@ -2,14 +2,18 @@ var app = new Vue({
     el: '#app',
     created: function() {
         this.updateDataFromHash();
+        this.setKeybindings();
     },
     data: {
         words: [],
         entropy: 0,
         unique_prefix: null,
         strength_score: 0,
-        strength: null,
         zipable: false,
+        strength_choices: ['base', 'strong', 'stronger', 'strongest'],
+        strength_labels: ['pas mal', 'correct', 'fort', 'super fort'],
+        strength_index: -1,
+        errorMessage: ''
     },
     computed: {
         apiurl: function() {
@@ -41,6 +45,30 @@ var app = new Vue({
                 };
             });
         },
+        strength: function() {
+            if (this.strength_index < 0) {
+                return null;
+            }
+
+            return this.strength_choices[this.strength_index];
+        },
+        strengthLabel: function() {
+            if (this.strength_index < 0) {
+                return null;
+            }
+
+            return this.strength_labels[this.strength_index];
+
+        },
+        isMaxStrength: function() {
+            return this.strength_index === this.strength_choices.length - 1;
+        },
+        toggleZipableLabel: function() {
+            if (this.zipable)
+                return 'Essayer une version mot complet';
+
+            return 'Essayer une version raccourcissable';
+        },
         strengthClass: function() {
             var s = this.strength_score;
 
@@ -71,6 +99,8 @@ var app = new Vue({
                 vm.unique_prefix = json.unique_prefix;
                 vm.strength_score = json.strength;
                 vm.entropy = Math.round(json.entropy);
+            }).catch(function() {
+                vm.errorMessage = 'Failed to load your passphrase, sorry :(';
             });
         },
         updateLocation: function() {
@@ -82,11 +112,48 @@ var app = new Vue({
             if (hash) {
                 var [type, strength] = hash.substring(1).split('/');
                 this.zipable = type === 'xpass';
-                this.strength = strength;
+                if (this.strength_choices.includes(strength)) {
+                    this.setStrength(strength);
+                } else {
+                    this.strength_index = 0;
+                }
             } else {
                 this.zipable = false;
-                this.strength = 'base';
+                this.strength_index = 0;
             }
+        },
+        setStrength: function(label) {
+            this.strength_index = this.strength_choices.indexOf(label);
+        },
+        stepup: function() {
+            if (!this.isMaxStrength)
+                this.strength_index++;
+        },
+        stepdown: function() {
+            if (this.strength_index > 0)
+                this.strength_index--;
+        },
+        toggleZipable: function() {
+            this.zipable = !this.zipable;
+        },
+        setKeybindings: function() {
+            document.addEventListener('keydown', (ev) => {
+                if (!ev.ctrlKey) {
+                    if (ev.shiftKey) {
+                        if (ev.key === 'R') {
+                            this.refreshPassphrase();
+                        } else if (ev.key === 'X') {
+                            this.zipable = !this.zipable;
+                        }
+                    } else if (ev.altKey) {
+                        if (ev.key === 'ArrowUp') {
+                            this.stepup();
+                        } else if (ev.key === 'ArrowDown') {
+                            this.stepdown();
+                        }
+                    }
+                }
+            });
         }
     },
     watch: {
