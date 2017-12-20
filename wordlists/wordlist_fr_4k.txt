@@ -10,7 +10,6 @@ abimer
 aboie
 abord
 aborder
-about
 aboutir
 aboutit
 aboyer
@@ -683,6 +682,7 @@ central
 centre
 cercle
 cerise
+cerne
 cerner
 certain
 certes
@@ -1196,7 +1196,6 @@ drapeau
 dressa
 dresse
 dresser
-drifter
 drogue
 droit
 droite
@@ -3013,6 +3012,7 @@ pub
 public
 publier
 puce
+pudding
 pudeur
 pudique
 pue

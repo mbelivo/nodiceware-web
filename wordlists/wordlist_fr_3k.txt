@@ -7,7 +7,6 @@ aboie
 abolir
 abord
 aborde
-about
 abouti
 aboyer
 abri
@@ -508,6 +507,7 @@ cesser
 cette
 ceux
 chacun
+chahut
 chaine
 chaise
 chalet

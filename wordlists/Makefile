@@ -15,6 +15,6 @@ wordlist_fr_4k.txt: $(LEXFILE)
 wordlist_fr_3k.txt: $(LEXFILE)
 	$(GEN) --limit=3072 -M6 -V5 -x $(EXCFILE) $< -o $@ $(FLAGS) $(NODICE_FLAGS)
 
-wordlist_fr_4d_2.txt: $(LEXFILE)
-	$(GEN) -n4 -m4 -M10 -p3 $< -o $@ $(FLAGS)
+wordlist_fr_4d_3.txt: $(LEXFILE)
+	$(GEN) -n4 -m4 -M10 -p3 -x exclude_words_4d.txt $< -o $@ $(FLAGS)
 
