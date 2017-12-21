@@ -4,6 +4,7 @@
   "description": "",
   "dependencies": {},
   "devDependencies": {
+    "eslint": "^4.13.1",
     "gulp": "^3.9.1",
     "gulp-postcss": "^7.0.0",
     "gulp-sourcemaps": "^2.6.1",
