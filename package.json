@@ -1,0 +1,26 @@
+{
+  "name": "nodiceware-web",
+  "version": "0.0.1",
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-postcss": "^7.0.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "postcss": "^6.0.14",
+    "postcss-cssnext": "^3.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbelivo/nodiceware-web.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mbelivo/nodiceware-web/issues"
+  },
+  "homepage": "https://github.com/mbelivo/nodiceware-web#readme",
+  "browserslist": [
+    "> 0.5%",
+    "firefox ESR"
+  ]
+}
