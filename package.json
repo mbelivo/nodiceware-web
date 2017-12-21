@@ -6,6 +6,7 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "browser-sync": "^2.19.0",
     "eslint": "^4.13.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
@@ -26,5 +27,8 @@
   "browserslist": [
     "> 0.5%",
     "firefox ESR"
-  ]
+  ],
+  "scripts": {
+    "serve-dev": "NODE_ENV='development' gulp serve"
+  }
 }

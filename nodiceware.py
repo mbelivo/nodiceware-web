@@ -57,7 +57,7 @@ def json_pass(listname, strength, unique_prefix=None):
 
 @app.route('/')
 def index():
-    return app.send_static_file('html/index.html')
+    return app.send_static_file('dist/html/index.html')
 
 
 @app.route('/api/passphrase')
