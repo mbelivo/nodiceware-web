@@ -1,8 +1,11 @@
+@custom-media --small-viewport (width <= 35em);
+
 *, *:before, *:after {
   box-sizing: border-box;
 }
 
 #main {
+  display: flex;
   position: absolute;
   top: 0;
   right: 0;
@@ -10,9 +13,12 @@
   left: 0;
 
   align-items: center;
-  display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media(--small-viewport) {
+    position: static;
+  }
 }
 
 #passphrase, #password {
@@ -26,125 +32,148 @@
 #passphrase {
   font-size: 4.5vw;
   margin-bottom: 0;
-}
 
-#passphrase.zipable {
-  font-size: 4vw;
-  margin-bottom: 3vh;
+  @media(--small-viewport) {
+    font-size: 3em;
+  }
+
+  &.zipable {
+    font-size: 4vw;
+    margin-bottom: 3vh;
+
+    @media(--small-viewport) {
+      font-size: 3em;
+    }
+  }
 }
 
 #password {
   font-size: 2.5vw;
 }
-.stronger .pp-word, .strongest .pp-word {
-  font-size: 90%;
-}
+
 .pp-word {
+  display: inline-block;
+
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-color: red;
-  display: inline-block;
   margin: 0.7vw;
+
+  @media(--small-viewport) {
+    display: block;
+  }
+
+  @nest .stronger &, .strongest & {
+    font-size: 90%;
+  }
+
+  & .postfix {
+    color: grey;
+  }
+
+  &:nth-child(2) {
+    border-color: orange;
+  }
+
+  &:nth-child(3) {
+    border-color: yellow;
+  }
+
+  &:nth-child(4) {
+    border-color: green;
+  }
+
+  &:nth-child(5) {
+    border-color: cyan;
+  }
+
+  &:nth-child(6) {
+    border-color: blue;
+  }
+
+  &:nth-child(7) {
+    border-color: pink;
+  }
+
+  &:nth-child(8) {
+    border-color: red;
+  }
 }
 
 .pw-word {
   display: inline-block;
   margin: 0.2vw;
-}
 
-.pp-word .postfix {
-  color: grey;
-}
-
-.pp-word:nth-child(2) {
-  border-color: orange;
-}
-
-.pp-word:nth-child(3) {
-  border-color: yellow;
-}
-
-.pp-word:nth-child(4) {
-  border-color: green;
-}
-
-.pp-word:nth-child(5) {
-  border-color: cyan;
-}
-
-.pp-word:nth-child(6) {
-  border-color: blue;
-}
-
-.pp-word:nth-child(7) {
-  border-color: pink;
-}
-
-.pp-word:nth-child(8) {
-  border-color: red;
+  @media (--small-viewport) {
+    font-size: 2em;
+    margin: 2px;
+  }
 }
 
 #foot {
-  bottom: 0;
   position: absolute;
+  bottom: 0;
   width: 100%;
+
+  @media(--small-viewport) {
+    position: relative;
+  }
 }
 
-.strength {
-  background-color: lightgrey;
-  width: 100%;
-}
-
-.smeter {
+.strength-meter {
   background-color: lightgrey;
   height: 10px;
-}
+  width: 100%;
 
-.smeter > div {
-  transition: all 0.5s ease-out;
-  height: 100%;
-  width: 0;
-}
+  & > div {
+    height: 100%;
+    transition: all 0.5s ease-out;
+    width: 0;
+  }
 
-.verybad-strength {
-  background-color: red;
-}
+  & .verybad-strength {
+    background-color: red;
+  }
 
-.bad-strength {
-  background: linear-gradient(to right, orange, gold 66%);
-}
+  & .bad-strength {
+    background: linear-gradient(to right, orange, gold 66%);
+  }
 
-.mediocre-strength {
-  background: linear-gradient(to right, gold, yellow 66%);
-}
+  & .mediocre-strength {
+    background: linear-gradient(to right, gold, yellow 66%);
+  }
 
-.ok-strength {
-  background: linear-gradient(to right, yellow, greenyellow 66%);
-}
+  & .ok-strength {
+    background: linear-gradient(to right, yellow, greenyellow 66%);
+  }
 
-.good-strength {
-  background: linear-gradient(to right, greenyellow, chartreuse 66%);
-}
+  & .good-strength {
+    background: linear-gradient(to right, greenyellow, chartreuse 66%);
+  }
 
-.verygood-strength {
-  background: linear-gradient(to right, chartreuse, lime 66%);
-}
-.excellent-strength {
-  background: linear-gradient(to right, lime, green 66%);
+  & .verygood-strength {
+    background: linear-gradient(to right, chartreuse, lime 66%);
+  }
+
+  & .excellent-strength {
+    background: linear-gradient(to right, lime, green 66%);
+  }
 }
 
 .error {
+  font-size: 20px;
+  margin: auto;
   text-align: center;
   width: 80%;
-  margin: auto;
-  font-size: 20px;
 }
 
 .strengthbtn {
+  position: absolute;
+  bottom: 20px;
+
   background: lightgray;
   border: 0;
   border-radius: 50%;
-  bottom: 20px;
   color: white;
   cursor: pointer;
   font-family: sans-serif;
@@ -152,31 +181,30 @@
   height: 30px;
   line-height: 30px;
   opacity: 0.6;
-  position: absolute;
   width: 30px;
-}
 
-.strengthbtn:hover {
-  opacity: 1;
-}
+  &.stepup {
+    right: 10px;
+    background-color: lime;
+  }
 
-.strengthbtn:disabled {
-  cursor: initial;
-  opacity: 0.3;
-}
+  &.stepdown {
+    left: 10px;
+    background-color: gold;
+  }
 
-.strengthbtn:focus {
-  outline: 0;
-}
+  &:hover {
+    opacity: 1;
+  }
 
-.stepup {
-  background-color: lime;
-  right: 10px;
-}
+  &:disabled {
+    cursor: initial;
+    opacity: 0.3;
+  }
 
-.stepdown {
-  background-color: gold;
-  left: 10px;
+  &:focus {
+    outline: 0;
+  }
 }
 
 .phrase {
@@ -189,19 +217,8 @@
   color: blue;
   cursor: pointer;
   font-family: inherit;
-}
 
-.linkbtn:focus {
-  outline: 0;
-}
-
-@media only screen and (max-width: 35em) {
-  .pp-word {
-    display: block;
-    font-size: 3em;
-  }
-  .pw-word {
-    font-size: 2em;
-    margin: 2px;
+  &:focus {
+    outline: 0;
   }
 }

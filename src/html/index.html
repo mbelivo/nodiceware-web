@@ -46,10 +46,8 @@ body {
         title="Affaiblir le mot de passe">➖</button>
       <button @click="stepup" class="strengthbtn stepup" :disabled="isMaxStrength"
         title="Renforcer le mot de passe">➕</button>
-      <div class="strength" :title="entropy + ' bits d\'entropie'">
-        <div class="smeter">
-          <div :style="{ width: strength_score + '%' }" :class="[strengthClass]"></div>
-        </div>
+      <div class="strength-meter" :title="entropy + ' bits d\'entropie'">
+        <div :style="{ width: strength_score + '%' }" :class="[strengthClass]"></div>
       </div>
     </div>
   </div>
