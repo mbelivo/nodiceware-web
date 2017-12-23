@@ -6,14 +6,18 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
     "browser-sync": "^2.19.0",
     "eslint": "^4.13.1",
     "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.0",
+    "gulp-bro": "^1.0.2",
     "gulp-postcss": "^7.0.0",
     "gulp-sourcemaps": "^2.6.1",
+    "normalize.css": "^7.0.0",
     "postcss": "^6.0.14",
-    "postcss-cssnext": "^3.0.2"
+    "postcss-cssnext": "^3.0.2",
+    "postcss-import": "^11.0.0",
+    "vue": "^2.5.13"
   },
   "repository": {
     "type": "git",

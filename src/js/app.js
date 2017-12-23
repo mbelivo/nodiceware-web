@@ -1,4 +1,6 @@
-var app = new Vue({
+var Vue = require('vue/dist/vue.common.js');
+
+new Vue({
     el: '#app',
     created: function() {
         this.updateDataFromHash();

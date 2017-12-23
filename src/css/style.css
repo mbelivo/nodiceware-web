@@ -1,3 +1,5 @@
+@import "normalize.css";
+
 @custom-media --small-viewport (width <= 35em);
 
 *, *:before, *:after {

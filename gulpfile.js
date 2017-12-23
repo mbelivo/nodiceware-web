@@ -1,13 +1,15 @@
 var gulp = require('gulp');
-var babel = require('gulp-babel');
+var babelify = require('babelify');
+var bro = require('gulp-bro');
 var cssnext = require('postcss-cssnext');
+var cssImport = require('postcss-import');
 var postcss = require('gulp-postcss');
 var sourcemaps = require('gulp-sourcemaps');
 
 var paths = {
     css: 'src/css/**/*.css',
     html: 'src/html/**/*.html',
-    js: 'src/js/**/*.js',
+    js: 'src/js/app.js',
     dist: {
         'css': 'static/dist/css',
         'html': 'static/dist/html',
@@ -19,7 +21,7 @@ var paths = {
 gulp.task('css', function() {
     return gulp.src(paths.css)
         .pipe(sourcemaps.init())
-        .pipe(postcss([cssnext]))
+        .pipe(postcss([cssImport, cssnext]))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(paths.dist.css));
 });
@@ -34,7 +36,9 @@ gulp.task('html', function() {
 gulp.task('js', function() {
     return gulp.src(paths.js)
         .pipe(sourcemaps.init())
-        .pipe(babel({ presets: ['env'] }))
+        .pipe(bro({
+            transform: [babelify.configure({ presets: ['env'] })]
+        }))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(paths.dist.js));
 });
@@ -71,6 +75,6 @@ gulp.task('watch', function() {
     gulp.watch(paths.js, ['js']);
 });
 
-
-gulp.task('serve', ['watch', 'run-server', 'browser-sync']);
-gulp.task('default', ['css', 'js']);
+gulp.task('build', ['css', 'js', 'html']);
+gulp.task('serve', ['build', 'watch', 'run-server', 'browser-sync']);
+gulp.task('default', ['build']);
