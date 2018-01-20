@@ -1,6 +1,6 @@
 var Vue = require('vue/dist/vue.common.js');
 
-new Vue({
+var vm = new Vue({
     el: '#app',
     created: function() {
         this.updateDataFromHash();
@@ -15,15 +15,39 @@ new Vue({
         strength_choices: ['base', 'strong', 'stronger', 'strongest'],
         strength_labels: ['pas mal', 'correct', 'fort', 'super fort'],
         strength_index: -1,
-        errorMessage: ''
+        errorMessage: '',
+        langs: ['fr', 'en'],
+        lang_index: 0
     },
     computed: {
         apiurl: function() {
-            let path = '/api/passphrase/' + this.strength;
+            let path = [
+                '/api/passphrase',
+                this.lang,
+                this.strength
+            ].join('/');
 
             if (this.zipable) path += '?zipable=1';
 
             return path;
+        },
+        lang: {
+            set: function(lang) {
+                var i = this.langs.indexOf(lang);
+                if (i >= 0) {
+                    this.lang_index = i;
+                }
+            },
+            get: function() {
+                if (this.lang_index < 0) return null;
+
+                return this.langs[this.lang_index];
+            }
+        },
+        avail_langs: function() {
+            return this.langs
+                .slice(null, this.lang_index)
+                .concat(this.langs.slice(this.lang_index + 1));
         },
         passlen: function() {
             if (this.zipable) {
@@ -47,12 +71,17 @@ new Vue({
                 };
             });
         },
-        strength: function() {
-            if (this.strength_index < 0) {
-                return null;
-            }
+        strength: {
+            get: function() {
+                if (this.strength_index < 0) {
+                    return null;
+                }
 
-            return this.strength_choices[this.strength_index];
+                return this.strength_choices[this.strength_index];
+            },
+            set: function(label) {
+                this.strength_index = this.strength_choices.indexOf(label);
+            }
         },
         strengthLabel: function() {
             if (this.strength_index < 0) {
@@ -115,7 +144,7 @@ new Vue({
                 var [type, strength] = hash.substring(1).split('/');
                 this.zipable = type === 'xpass';
                 if (this.strength_choices.includes(strength)) {
-                    this.setStrength(strength);
+                    this.strength = strength;
                 } else {
                     this.strength_index = 0;
                 }
@@ -123,9 +152,6 @@ new Vue({
                 this.zipable = false;
                 this.strength_index = 0;
             }
-        },
-        setStrength: function(label) {
-            this.strength_index = this.strength_choices.indexOf(label);
         },
         stepup: function() {
             if (!this.isMaxStrength)

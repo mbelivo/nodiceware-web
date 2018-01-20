@@ -224,3 +224,15 @@
     outline: 0;
   }
 }
+
+#head {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
+
+#lang-chooser {
+  list-style-type: none;
+  padding: 0;
+}

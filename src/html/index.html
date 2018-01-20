@@ -20,6 +20,13 @@ body {
 <body>
   <div id="app">
     <div class="error" v-if="errorMessage"><p>{{ errorMessage }}</p></div>
+    <div id="head">
+      <ul id="lang-chooser">
+        <li v-for="l in avail_langs">
+          <button class="linkbtn" @click="lang = l">{{ l }}</button>
+        </li>
+      </ul>
+    </div>
     <div id="main">
       <ul v-if="splitwords.length" id="passphrase" class="zipable">
         <li class="pp-word" v-for="word in splitwords">
